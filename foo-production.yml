@@ -1,0 +1,81 @@
+spring:
+  redis:
+    database: 0
+    host: 192.168.1.77
+    port: 6379
+#    password: admin123
+    pool:
+      max-active: 8
+      max-wait: -1
+      max-idle: 8
+      min-idle: 0
+    timeout: 0
+  http:
+    multipart:
+      location: ${spring.web.upload-path}
+      maxFileSize: 50Mb
+      maxRequestSize: 50Mb
+  resources:
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:${spring.web.upload-path} #设置图片地址为静态资源
+
+  web:
+    upload-path: D:/360Downloads/ #设置保存图片的物理地址，自定义属性
+    web-path: http://192.168.1.135:8200/his/ #设置访问的url地址，自定义属性
+    subweb-path: http://192.168.1.135:8200/ #设置访问的url地址，自定义属性
+feign:
+  hystrix:
+    enabled: true
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8100/eureka/
+  instance:
+      instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+      prefer-ip-address: true
+      hostname: ${spring.cloud.client.ipAddress}
+
+mysql:
+  datasource:
+    readSize: 1  #读库个数
+    type: com.alibaba.druid.pool.DruidDataSource
+    mapperLocations: classpath:mapper/**/*.xml
+    configLocation: classpath:/mybatis-config.xml
+    write:
+       url: jdbc:mysql://192.168.1.55:3306/db_meiduoduo_test3?useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true&amp;allowMultiQueries=true&amp;zeroDateTimeBehavior=convertToNull
+       username: meiduoduo
+       password: meiduoduo123
+       driver-class-name: com.mysql.jdbc.Driver
+       minIdle: 5
+       maxActive: 100
+       initialSize: 10
+       maxWait: 60000
+       timeBetweenEvictionRunsMillis: 60000
+       minEvictableIdleTimeMillis: 300000
+       validationQuery: select 'x'
+       testWhileIdle: true
+       testOnBorrow: false
+       testOnReturn: false
+       poolPreparedStatements: true
+       maxPoolPreparedStatementPerConnectionSize: 50
+       removeAbandoned: true
+       filters: stat
+    read:
+       url: jdbc:mysql://192.168.1.55:3306/db_meiduoduo_test3?useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true&amp;allowMultiQueries=true&amp;zeroDateTimeBehavior=convertToNull
+       username: meiduoduo
+       password: meiduoduo123
+       driver-class-name: com.mysql.jdbc.Driver
+       minIdle: 5
+       maxActive: 100
+       initialSize: 10
+       maxWait: 60000
+       timeBetweenEvictionRunsMillis: 60000
+       minEvictableIdleTimeMillis: 300000
+       validationQuery: select 'x'
+       testWhileIdle: true
+       testOnBorrow: false
+       testOnReturn: false
+       poolPreparedStatements: true
+       maxPoolPreparedStatementPerConnectionSize: 50
+       removeAbandoned: true
+       filters: stat
