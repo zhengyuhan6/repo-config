@@ -1,3 +1,4 @@
+from: meiduoduo-his-dev-1.0
 mysql:
   datasource:
     readSize: 1  #读库个数
