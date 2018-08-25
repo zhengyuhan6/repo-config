@@ -1,4 +1,6 @@
 from: meiduoduo-his-test-1.0
+server:
+  port: 9900
 mysql:
   datasource:
     readSize: 1  #读库个数
