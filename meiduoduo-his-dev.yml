@@ -1,6 +1,38 @@
 from: meiduoduo-his-dev-1.0
 server:
   port: 9200
+
+spring:
+  application:
+    name: meiduoduo-his
+  redis:
+    database: 0
+    host: 192.168.1.77
+    port: 6379
+#    password: admin123
+    pool:
+      max-active: 8
+      max-wait: -1
+      max-idle: 8
+      min-idle: 0
+    timeout: 0
+  http:
+    multipart:
+      location: ${spring.web.upload-path}
+      maxFileSize: 50Mb
+      maxRequestSize: 50Mb
+  resources:
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:${spring.web.upload-path} #设置图片地址为静态资源
+
+  web:
+    upload-path: D:/360Downloads/ #设置保存图片的物理地址，自定义属性
+    web-path: http://192.168.1.135:8200/his/ #设置访问的url地址，自定义属性
+    subweb-path: http://192.168.1.135:8200/ #设置访问的url地址，自定义属性
+
+feign:
+  hystrix:
+    enabled: true
+
 mysql:
   datasource:
     readSize: 1  #读库个数
@@ -8,7 +40,7 @@ mysql:
     mapperLocations: classpath:mapper/**/*.xml
     configLocation: classpath:/mybatis-config.xml
     write:
-       url: jdbc:mysql://192.168.1.55:3306/db_meiduoduo_test?useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true&amp;allowMultiQueries=true&amp;zeroDateTimeBehavior=convertToNull
+       url: jdbc:mysql://192.168.1.55:3306/db_meiduoduo_test4?useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true&amp;allowMultiQueries=true&amp;zeroDateTimeBehavior=convertToNull
        username: meiduoduo
        password: meiduoduo123
        driver-class-name: com.mysql.jdbc.Driver
@@ -27,7 +59,7 @@ mysql:
        removeAbandoned: true
        filters: stat
     read:
-       url: jdbc:mysql://192.168.1.55:3306/db_meiduoduo_test?useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true&amp;allowMultiQueries=true&amp;zeroDateTimeBehavior=convertToNull
+       url: jdbc:mysql://192.168.1.55:3306/db_meiduoduo_test4?useUnicode=true&amp;characterEncoding=utf-8&amp;autoReconnect=true&amp;allowMultiQueries=true&amp;zeroDateTimeBehavior=convertToNull
        username: meiduoduo
        password: meiduoduo123
        driver-class-name: com.mysql.jdbc.Driver
@@ -45,3 +77,33 @@ mysql:
        maxPoolPreparedStatementPerConnectionSize: 50
        removeAbandoned: true
        filters: stat
+
+mybatis:
+    type-aliases-package:
+      com.deshang.meiduoduo.his.entity;
+      com.deshang.meiduoduo.common.entity
+    mapper-locations:
+      classpath:mapper/**/*.xml
+    config-location:
+      classpath:/mybatis-config.xml
+
+logging:
+  level:
+    org: error
+    com.deshang.meiduoduo.his.dao: debug
+
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+    offset-as-page-num: true
+    row-bounds-with-count: true
+    page-size-zero: true
+
+prop:
+    allowUrl:
+      /swagger*
+    noTokenUrl:
+      /auth/login/*,
+      /basics/login/*
