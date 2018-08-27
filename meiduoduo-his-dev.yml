@@ -1,4 +1,4 @@
-from: meiduoduo-his-dev-1.0
+from: meiduoduo-his-dev-3.0
 server:
   port: 9200
 

@@ -1,4 +1,4 @@
-from: meiduoduo-demo-dev-1.0
+from: meiduoduo-demo-dev-3.0
 server:
   port: 9900
 mysql:
